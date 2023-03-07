@@ -22,24 +22,24 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-import os
-import json
+from PySide6.QtGui import QFontDatabase
 
-from tools import build
 from utils import global_path
 
-global_path.set_proj_abs_path(os.path.abspath(__file__))
 
-with open("config/config.json", "r") as j:
-    config = json.load(j)
+def load(path):
+    return QFontDatabase.applicationFontFamilies(
+        QFontDatabase.addApplicationFont(global_path.get_proj_abs_path(path))
+    )[0]
 
-build.build(
-    withconsole=False,
-    path=os.path.abspath("vysiz.py"),
-    file_dict=["assets", "config"],
-    companyname="Cshtarn",
-    product_version=config["version"],
-    icon=global_path.get_proj_abs_path("assets/vysiz_icon.png"),
-    plugin_dict=["pyside6"],
-    include_package_dict=[],
-)
+
+def load_font(w):
+    w.Pretendard_Black = load("assets/fonts/Pretendard-Black.otf")
+    w.Pretendard_Bold = load("assets/fonts/Pretendard-Bold.otf")
+    w.Pretendard_ExtraBold = load("assets/fonts/Pretendard-ExtraBold.otf")
+    w.Pretendard_ExtraLight = load("assets/fonts/Pretendard-ExtraLight.otf")
+    w.Pretendard_Light = load("assets/fonts/Pretendard-Light.otf")
+    w.Pretendard_Medium = load("assets/fonts/Pretendard-Medium.otf")
+    w.Pretendard_Regular = load("assets/fonts/Pretendard-Regular.otf")
+    w.Pretendard_SemiBold = load("assets/fonts/Pretendard-SemiBold.otf")
+    w.Pretendard_Thin = load("assets/fonts/Pretendard-Thin.otf")
