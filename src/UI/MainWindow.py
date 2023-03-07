@@ -7,7 +7,6 @@ from PySide6.QtGui import QIcon, QFont
 from utils import global_path
 from src.UI.menubar import menubar
 from src.UI.window import window
-from src.utils import font
 from PySide6.QtWidgets import (
     QWidget,
     QGridLayout,
@@ -22,13 +21,14 @@ from PySide6.QtWidgets import (
 class vysiz_UI_MainWindow(QMainWindow):
     def __init__(self):
         super(vysiz_UI_MainWindow, self).__init__()
-        font.load_font(w=self)
         with open(global_path.get_proj_abs_path("config/config.json"), "r") as j:
             self.config = json.load(j)
 
         widget = QWidget()
         menubar.setup(w=self)
         window.setup(w=self)
+
+        self.statusBar().showMessage("Ready")
 
         self.GRID = QGridLayout(widget)
         self.initUI()
