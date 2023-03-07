@@ -5,6 +5,8 @@ from PySide6.QtCore import QTimer
 from PySide6.QtGui import QIcon, QFont
 
 from utils import global_path
+from src.UI.menubar import menubar
+from src.UI.window import window
 from src.utils import font
 from PySide6.QtWidgets import (
     QWidget,
@@ -25,15 +27,10 @@ class vysiz_UI_MainWindow(QMainWindow):
             self.config = json.load(j)
 
         widget = QWidget()
+        menubar.setup(w=self)
+        window.setup(w=self)
 
         self.GRID = QGridLayout(widget)
-
-        self.setWindowTitle("VYSIZ")
-        self.setWindowIcon(
-            QIcon(global_path.get_proj_abs_path("assets/vysiz_icon.png"))
-        )
-        self.setMinimumSize(600, 200)
-        self.resize(1280, 720)
         self.initUI()
 
     def initUI(self):
